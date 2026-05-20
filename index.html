@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sibbjäns Gård — Tala med Sophia</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&family=Geist:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --cream:   #f5f0e8;
+      --cream-2: #ede6d6;
+      --sand:    #d4c9b0;
+      --stone:   #8a7d68;
+      --bark:    #4a3f2f;
+      --bark-d:  #2e2418;
+      --green:   #3d5a3e;
+      --green-2: #2a4030;
+      --sage:    #7a9e7e;
+      --border:  rgba(74,63,47,0.12);
+      --border-s:rgba(74,63,47,0.20);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--cream);
+      color: var(--bark-d);
+      font-family: 'Geist', sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 40px;
+      background: rgba(245,240,232,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-weight: 400;
+      font-size: 22px;
+      letter-spacing: -0.01em;
+      color: var(--bark-d);
+      text-decoration: none;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 32px;
+      list-style: none;
+    }
+
+    .nav-links a {
+      font-size: 12px;
+      font-weight: 400;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--stone);
+      text-decoration: none;
+      transition: color 150ms;
+    }
+
+    .nav-links a:hover { color: var(--bark-d); }
+
+    .nav-cta {
+      font-size: 12px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--cream);
+      background: var(--bark-d);
+      border: none;
+      border-radius: 999px;
+      padding: 10px 22px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 150ms;
+    }
+
+    .nav-cta:hover { background: var(--bark); }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to top,
+        rgba(20,15,8,0.65) 0%,
+        rgba(20,15,8,0.15) 50%,
+        transparent 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 60px 72px;
+      max-width: 700px;
+    }
+
+    .hero-eyebrow {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 16px;
+      color: rgba(245,240,232,0.7);
+      letter-spacing: 0.04em;
+      margin-bottom: 16px;
+    }
+
+    .hero-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(44px, 6vw, 72px);
+      line-height: 1.0;
+      letter-spacing: -0.02em;
+      color: #f5f0e8;
+      margin-bottom: 24px;
+    }
+
+    .hero-sub {
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(245,240,232,0.65);
+      line-height: 1.6;
+      max-width: 420px;
+    }
+
+    /* ── SOPHIA SECTION ── */
+    .sophia-section {
+      background: var(--cream);
+      padding: 100px 40px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .sophia-inner {
+      max-width: 960px;
+      width: 100%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    .sophia-text {}
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--sage);
+      margin-bottom: 20px;
+    }
+
+    .sophia-text h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: clamp(32px, 4vw, 48px);
+      line-height: 1.1;
+      letter-spacing: -0.015em;
+      color: var(--bark-d);
+      margin-bottom: 24px;
+    }
+
+    .sophia-text h2 em {
+      font-style: italic;
+      color: var(--green);
+    }
+
+    .sophia-text p {
+      font-size: 15px;
+      line-height: 1.75;
+      color: var(--stone);
+      margin-bottom: 16px;
+    }
+
+    .capabilities {
+      margin-top: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cap-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--bark);
+    }
+
+    .cap-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+
+    /* Agent card */
+    .agent-card {
+      background: white;
+      border: 1px solid var(--border-s);
+      border-radius: 24px;
+      padding: 40px 36px;
+      text-align: center;
+      box-shadow: 0 8px 40px -8px rgba(74,63,47,0.12);
+    }
+
+    .avatar {
+      width: 88px;
+      height: 88px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, var(--green), var(--green-2));
+      margin: 0 auto 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 36px;
+      color: #f5f0e8;
+      position: relative;
+    }
+
+    .avatar-ring {
+      position: absolute;
+      inset: -8px;
+      border-radius: 50%;
+      border: 1px solid rgba(122,158,126,0.3);
+    }
+
+    .live-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(61,90,62,0.08);
+      border: 1px solid rgba(61,90,62,0.2);
+      border-radius: 999px;
+      padding: 5px 14px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      color: var(--green);
+      margin-bottom: 20px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+      animation: pulse-dot 2s ease-in-out infinite;
+    }
+
+    .agent-name {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--bark-d);
+      margin-bottom: 4px;
+    }
+
+    .agent-role {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--stone);
+      margin-bottom: 28px;
+    }
+
+    .card-divider {
+      width: 32px;
+      height: 1px;
+      background: var(--border-s);
+      margin: 0 auto 28px;
+    }
+
+    .agent-desc {
+      font-size: 14px;
+      line-height: 1.7;
+      color: var(--stone);
+      margin-bottom: 32px;
+    }
+
+    /* Widget area */
+    .widget-wrap {
+      display: flex;
+      justify-content: center;
+      margin-bottom: 20px;
+    }
+
+    .card-footer {
+      font-size: 12px;
+      color: var(--sand);
+      line-height: 1.5;
+    }
+
+    /* ── FARM STRIP ── */
+    .farm-strip {
+      background: var(--cream-2);
+      padding: 80px 40px;
+      text-align: center;
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .farm-strip p {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: clamp(18px, 2.5vw, 26px);
+      font-weight: 300;
+      color: var(--bark);
+      max-width: 680px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--bark-d);
+      color: rgba(245,240,232,0.5);
+      padding: 48px 40px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      text-align: center;
+    }
+
+    .footer-logo {
+      font-family: 'Cormorant Garamond', serif;
+      font-style: italic;
+      font-size: 24px;
+      color: #f5f0e8;
+    }
+
+    footer p {
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    footer a {
+      color: rgba(245,240,232,0.5);
+      text-decoration: none;
+    }
+
+    footer a:hover { color: #f5f0e8; }
+
+    .footer-sep { margin: 0 10px; opacity: 0.3; }
+
+    /* Animations */
+    @keyframes pulse-dot {
+      0%, 100% { opacity: 1; }
+      50%       { opacity: 0.3; }
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .sophia-inner { animation: fadeUp 0.9s 0.2s ease both; }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav { padding: 16px 20px; }
+      .nav-links { display: none; }
+      .hero-content { padding: 0 24px 56px; }
+      .sophia-section { padding: 64px 24px; }
+      .sophia-inner { grid-template-columns: 1fr; gap: 48px; }
+      footer { padding: 40px 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <a href="https://www.sibbjans.se/sv" class="nav-logo">Sibbjäns</a>
+    <ul class="nav-links">
+      <li><a href="https://www.sibbjans.se/sv/hotell">Hotell</a></li>
+      <li><a href="https://www.sibbjans.se/sv/restaurang">Restaurang</a></li>
+      <li><a href="https://www.sibbjans.se/sv/paket-och-retreats">Retreats</a></li>
+      <li><a href="https://www.sibbjans.se/sv/kontakt">Kontakt</a></li>
+    </ul>
+    <a href="https://www.sibbjans.se/sv" class="nav-cta">Boka vistelse</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <img
+      class="hero-img"
+      src="https://eu-west-2.graphassets.com/cm5mjws2000ab08mm95ka8tap/resize=fit:max,height:1800,width:1800/output=format:webp/cma6xuhqt2lfv07mg20zlyy22"
+      alt="Sibbjäns Gård, södra Gotland"
+    />
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <p class="hero-eyebrow">Boutique gårdshotell · Södra Gotland</p>
+      <h1 class="hero-title">Välkommen till<br>Sibbjäns Gård</h1>
+      <p class="hero-sub">Sveriges första boutique farmstay. Prata med Sophia — vår digitala concierge — för att få svar på dina frågor.</p>
+    </div>
+  </section>
+
+  <!-- SOPHIA SECTION -->
+  <section class="sophia-section">
+    <div class="sophia-inner">
+
+      <div class="sophia-text">
+        <p class="section-label">Vår digitala concierge</p>
+        <h2>Tala med <em>Sophia</em> —<br>direkt via rösten</h2>
+        <p>Sophia är tillgänglig dygnet runt och svarar på dina frågor om Sibbjäns med samma omsorg och precision som vår personal på plats.</p>
+        <p>Klicka på knappen, tillåt mikrofonen och börja prata — precis som ett vanligt telefonsamtal.</p>
+
+        <div class="capabilities">
+          <div class="cap-item">
+            <span class="cap-dot"></span>
+            Frågor om rum, priser och tillgänglighet
+          </div>
+          <div class="cap-item">
+            <span class="cap-dot"></span>
+            Information om restaurangen och farm to fork-menyn
+          </div>
+          <div class="cap-item">
+            <span class="cap-dot"></span>
+            Retreats, yoga och aktiviteter på gården
+          </div>
+          <div class="cap-item">
+            <span class="cap-dot"></span>
+            Vägbeskrivning och transport till Gotland
+          </div>
+          <div class="cap-item">
+            <span class="cap-dot"></span>
+            Preliminära bokningsförfrågningar
+          </div>
+        </div>
+      </div>
+
+      <!-- AGENT CARD -->
+      <div class="agent-card">
+        <div class="avatar">
+          S
+          <div class="avatar-ring"></div>
+        </div>
+
+        <div class="live-badge">
+          <span class="live-dot"></span>
+          Tillgänglig nu
+        </div>
+
+        <p class="agent-name">Sophia</p>
+        <p class="agent-role">Reservationsspecialist · Sibbjäns</p>
+
+        <div class="card-divider"></div>
+
+        <p class="agent-desc">
+          Varm, professionell och alltid redo att hjälpa dig planera din vistelse på Gotlands vackraste gård.
+        </p>
+
+        <!-- KLISTRA IN DIN ELEVENLABS WIDGET HÄR -->
+        <div class="widget-wrap">
+          <elevenlabs-convai agent-id="DIN_AGENT_ID_HÄR"></elevenlabs-convai>
+        </div>
+
+        <p class="card-footer">
+          Tillåt mikrofonen när browsern frågar.<br>
+          Säg bara hej — Sophia svarar direkt.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- QUOTE STRIP -->
+  <div class="farm-strip">
+    <p>"Vår dröm är enkel – att dela med oss av allt det vi älskar med södra Gotland."</p>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p class="footer-logo">Sibbjäns</p>
+    <p>
+      Sibbjäns 102, Vamlingbo, södra Gotland
+    </p>
+    <p>
+      <a href="tel:0498601565">0498 60 15 65</a>
+      <span class="footer-sep">·</span>
+      <a href="mailto:info@sibbjans.se">info@sibbjans.se</a>
+      <span class="footer-sep">·</span>
+      <a href="https://www.sibbjans.se/sv">sibbjans.se</a>
+    </p>
+  </footer>
+
+  <!-- ElevenLabs widget -->
+  <script src="https://elevenlabs.io/convai-widget/index.js" async></script>
+
+</body>
+</html>
